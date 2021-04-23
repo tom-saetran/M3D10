@@ -87,11 +87,11 @@
         <div class="modal fade pt-5" id="newModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">New Entry</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form onsubmit="postData(event)">
+                    <form onsubmit="postToAPI(event)">
+                        <div class="modal-header">
+                            <h4 class="modal-title">New Entry</h4>
+                        </div>
+                        <div class="modal-body">
                             <label class="ml-2" for="post-name">Name</label>
                             <input id="post-name" type="text" class="form-control mb-2" placeholder="Name..." required />
 
@@ -99,15 +99,15 @@
                             <input id="post-description" type="text" class="form-control mb-2" placeholder="Description..." required />
 
                             <label class="ml-2" for="post-brand">Genre</label>
-                            <input id="post-genre" type="text" class="form-control mb-2" placeholder="Genre..." required />
+                            <input id="post-category" type="text" class="form-control mb-2" placeholder="Category..." required />
 
                             <label class="ml-2" for="post-imageUrl">Image URL</label>
                             <input id="post-imageUrl" type="url" class="form-control mb-2" placeholder="Image URL..." required />
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-success w-50 mx-auto" value="Create" />
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-success w-50 mx-auto" value="Create" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -230,6 +230,7 @@
 
             window.onload = async () => {
                 for (const genre of await getFromAPI(endpoint)) movieData[genre] = await getFromAPI(endpoint, genre)
+                sendDataToCarouselBuilder(await movieData)
             }
 
             const postToAPI = async event => {
@@ -239,7 +240,6 @@
                 const userData = {
                     name: document.getElementById("post-name").value,
                     description: document.getElementById("post-description").value,
-                    price: document.getElementById("post-price").value,
                     category: document.getElementById("post-category").value,
                     imageUrl: document.getElementById("post-imageUrl").value
                 }
