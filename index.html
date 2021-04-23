@@ -262,7 +262,6 @@
                     console.error(error.message)
                 }
             }
-
             const getFromAPI = async (endpoint, params = "") => {
                 try {
                     const response = await fetch(endpoint + params, {
@@ -278,11 +277,9 @@
                     console.error(`Failed on ${getFromAPI.name} with error ${error.message}`)
                 }
             }
-
             const sendDataToCarouselBuilder = data => {
                 for (const key of Object.keys(data)) buildCarousel(data[key], key)
             }
-
             const buildCarousel = (data, key) => {
                 const parent = document.getElementById("main-container")
 
@@ -297,7 +294,7 @@
                             <div id="${key}-carousel-slides" class="carousel-inner">`
 
                 const slideTemplateUpper = `
-                                <div class="carousel-item ${slideNumber === 1 ? "active" : ""}">
+                                <div class="carousel-item">
                                     <div class="slide${slideNumber}">
                                         <div class="row">`
 
@@ -340,6 +337,7 @@
                 carousel += carouselTemplateLower
 
                 parent.innerHTML += carousel
+                parent.querySelector(`#${key}-carousel .carousel-item:first-of-type`).classList.add("active")
             }
         </script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
